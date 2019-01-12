@@ -316,6 +316,15 @@ Apache-2.0
 @angular/core
 MIT
 
+@angular/common
+MIT
+
+@angular/platform-browser
+MIT
+
+@angular/forms
+MIT
+
 @angular/animations
 MIT
 
@@ -344,18 +353,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-@angular/common
-MIT
-
-@angular/platform-browser
-MIT
-
 @angular/material/tooltip
 
 @angular/material/card
-
-@angular/forms
-MIT
 
 @angular/material/icon
 
