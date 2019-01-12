@@ -28,29 +28,12 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 # Task Guidelines
 
-text-align: center;
-                    width: 30px;
-                    padding: 3px;
-                    background: #4CAF50;
-                    color: white;
-                    &.weekend {
-                        background: #FBC02D;
-                    }
-                    &.invalid {
-                        background: #333;
-                    }
-                    &.heading {
-                        text-align: center;
-                    }
-                    &.holiday {
-                        backgrng ound: #00e676;
-
 ## Calendar Display
 
-Weekends are displayed using Hex Color Code #FBC02D
-Weekdays are displayed using Hex Color Code #4CAF50
-Holidays are displayed using Hex Color Code #00e676
-Invalid days are displayed using Hex Color Code #333
+Weekends are displayed using Hex Color Code #fafb03
+Weekdays are displayed using Hex Color Code #ecf7d3
+Holidays are displayed using Hex Color Code #fe7906
+Invalid days are displayed using Hex Color Code #ccccca
 
 ## Resources Used
 

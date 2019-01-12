@@ -1,26 +1,26 @@
 app-calendar {
     display: block;
     table {
-        border-spacing: 0;
+        border-spacing: 1;
         tbody {
             tr {
                 td {
                     text-align: center;
                     width: 30px;
                     padding: 3px;
-                    background: #4CAF50;
-                    color: white;
+                    background: #ecf7d3;
+                    color: black;
                     &.weekend {
-                        background: #FBC02D;
+                        background: #fafb03;
                     }
                     &.invalid {
-                        background: #333;
+                        background: #ccccca;
                     }
                     &.heading {
                         text-align: center;
                     }
                     &.holiday {
-                        background: #00e676;
+                        background: #fe7906;
                     }
                 }
             }
