@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card>\n  <form (ngSubmit)=\"calendar.refresh()\">\n    <mat-card-header>\n      <div mat-card-avatar class=\"avatar-icon\">\n        <mat-icon>calendar_today</mat-icon>\n      </div>\n      <mat-card-title>ProCalendar</mat-card-title>\n      <mat-card-subtitle>Range Viewer</mat-card-subtitle>\n    </mat-card-header>\n    <mat-card-content>\n      <div>\n        <div>\n          <mat-form-field>\n            <input matInput placeholder=\"Start Date\" [(ngModel)]=\"startDate\" name=\"startDate\">\n          </mat-form-field>\n        </div>\n        <div>\n          <mat-form-field>\n            <input matInput placeholder=\"Range\" [(ngModel)]=\"range\" name=\"range\">\n          </mat-form-field>\n        </div>\n        <div>\n          <mat-form-field>\n            <input matInput placeholder=\"Country Code\" [(ngModel)]=\"countryCode\" name=\"countryCode\">\n          </mat-form-field>\n        </div>\n      </div>\n      <div>\n        <app-calendar #calendar [startDate]=\"startDate\" [endDate]=\"endDate\" [countryCode]=\"countryCode\"></app-calendar>\n      </div>\n    </mat-card-content>\n    <mat-card-actions>\n      <button mat-raised-button type=\"submit\">Generate Calendar</button>\n    </mat-card-actions>\n  </form>\n</mat-card>"
+module.exports = "<mat-card>\n  <form (ngSubmit)=\"calendar.refresh()\">\n    <mat-card-header>\n      <div mat-card-avatar class=\"avatar-icon\">\n        <mat-icon>calendar_today</mat-icon>\n      </div>\n      <mat-card-title>ProCalendar</mat-card-title>\n      <mat-card-subtitle>Range Viewer</mat-card-subtitle>\n    </mat-card-header>\n    <mat-card-content>\n      <div>\n        <div>\n          <mat-form-field>\n            <input matInput placeholder=\"Start Date\" [(ngModel)]=\"startDate\" name=\"startDate\">\n          </mat-form-field>\n        </div>\n        <div>\n          <mat-form-field>\n            <input matInput placeholder=\"Number of days\" [(ngModel)]=\"range\" name=\"range\">\n          </mat-form-field>\n        </div>\n        <div>\n          <mat-form-field>\n            <input matInput placeholder=\"Country Code\" [(ngModel)]=\"countryCode\" name=\"countryCode\">\n          </mat-form-field>\n        </div>\n      </div>\n      <div>\n        <app-calendar #calendar [startDate]=\"startDate\" [endDate]=\"endDate\" [countryCode]=\"countryCode\"></app-calendar>\n      </div>\n    </mat-card-content>\n    <mat-card-actions>\n      <button mat-raised-button type=\"submit\">Generate Calendar</button>\n    </mat-card-actions>\n  </form>\n</mat-card>"
 
 /***/ }),
 
@@ -174,8 +174,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _components_calendar_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/calendar.component */ "./src/app/calendar/components/calendar.component.ts");
+/* harmony import */ var _angular_cdk_scrolling__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/cdk/scrolling */ "./node_modules/@angular/cdk/esm5/scrolling.es5.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _components_calendar_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/calendar.component */ "./src/app/calendar/components/calendar.component.ts");
+
 
 
 
@@ -186,12 +188,13 @@ var CalendarModule = /** @class */ (function () {
     }
     CalendarModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [_components_calendar_component__WEBPACK_IMPORTED_MODULE_4__["CalendarComponent"]],
+            declarations: [_components_calendar_component__WEBPACK_IMPORTED_MODULE_5__["CalendarComponent"]],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTooltipModule"]
+                _angular_cdk_scrolling__WEBPACK_IMPORTED_MODULE_3__["ScrollingModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatTooltipModule"]
             ],
-            exports: [_components_calendar_component__WEBPACK_IMPORTED_MODULE_4__["CalendarComponent"]],
+            exports: [_components_calendar_component__WEBPACK_IMPORTED_MODULE_5__["CalendarComponent"]],
             providers: [],
         })
     ], CalendarModule);
@@ -209,7 +212,7 @@ var CalendarModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "Showing Date Range For {{ startDate }} - {{ endDate }}\r\n\r\n<table>\r\n    <ng-template ngFor let-month [ngForOf]=\"calendar\">\r\n        <thead>\r\n            <th>\r\n                S\r\n            </th>\r\n            <th>\r\n                M\r\n            </th>\r\n            <th>\r\n                T\r\n            </th>\r\n            <th>\r\n                W\r\n            </th>\r\n            <th>\r\n                T\r\n            </th>\r\n            <th>\r\n                F\r\n            </th>\r\n            <th>\r\n                S\r\n            </th>\r\n        </thead>\r\n        <tbody>\r\n            <tr>\r\n                <td colspan=\"7\" class=\"heading\">\r\n                    {{ months[month.month] }} {{ month.year}}\r\n                </td>\r\n            </tr>\r\n            <ng-template ngFor let-week [ngForOf]=\"month.weeks\">\r\n                <tr>\r\n                    <ng-template ngFor let-day [ngForOf]=\"week\">\r\n                        <td [class.weekend]=\"day?.isWeekend\"\r\n                            [class.holiday]=\"day?.holidays?.length > 0\"\r\n                            [class.invalid]=\"!day\"\r\n                            [matTooltip]=\"getHolidayList(day)\">\r\n                            {{ day?.date.getDate() }}\r\n                        </td>\r\n                    </ng-template>\r\n                </tr>\r\n            </ng-template>\r\n        </tbody>\r\n    </ng-template>\r\n</table>"
+module.exports = "<cdk-virtual-scroll-viewport itemSize=\"200\" class=\"calendar-viewport\">\r\n    <div *cdkVirtualFor=\"let month of calendar\" class=\"calendar-viewport-item\">\r\n        <table>\r\n            <thead>\r\n                <th>\r\n                    S\r\n                </th>\r\n                <th>\r\n                    M\r\n                </th>\r\n                <th>\r\n                    T\r\n                </th>\r\n                <th>\r\n                    W\r\n                </th>\r\n                <th>\r\n                    T\r\n                </th>\r\n                <th>\r\n                    F\r\n                </th>\r\n                <th>\r\n                    S\r\n                </th>\r\n            </thead>\r\n            <tbody>\r\n                <tr>\r\n                    <td colspan=\"7\" class=\"heading\">\r\n                        {{ months[month.month] }} {{ month.year}}\r\n                    </td>\r\n                </tr>\r\n                <ng-template ngFor let-week [ngForOf]=\"month.weeks\">\r\n                    <tr>\r\n                        <ng-template ngFor let-day [ngForOf]=\"week\">\r\n                            <td [class.weekend]=\"day?.isWeekend\" [class.holiday]=\"day?.holidays?.length > 0\"\r\n                                [class.invalid]=\"!day\" [matTooltip]=\"getHolidayList(day)\">\r\n                                {{ day?.date.getDate() }}\r\n                            </td>\r\n                        </ng-template>\r\n                    </tr>\r\n                </ng-template>\r\n            </tbody>\r\n        </table>\r\n    </div>\r\n</cdk-virtual-scroll-viewport>"
 
 /***/ }),
 
