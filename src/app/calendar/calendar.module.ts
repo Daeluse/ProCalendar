@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatTooltipModule } from '@angular/material';
 
 import {
@@ -11,6 +12,7 @@ import {
     declarations: [ CalendarComponent ],
     imports: [
         CommonModule,
+        ScrollingModule,
         MatTooltipModule
     ],
     exports: [ CalendarComponent ],

@@ -9,3 +9,12 @@ app-root {
         flex-basis: 50%;
     }
 }
+
+.calendar-viewport {
+    height: 300px;
+    width: 300px;
+    overflow-y: auto;
+    .calendar-viewport-item {
+        height: 200px;
+    }
+}

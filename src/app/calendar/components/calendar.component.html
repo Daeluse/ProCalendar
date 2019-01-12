@@ -1,48 +1,48 @@
 Showing Date Range For {{ startDate }} - {{ endDate }}
 
-<table>
-    <ng-template ngFor let-month [ngForOf]="calendar">
-        <thead>
-            <th>
-                S
-            </th>
-            <th>
-                M
-            </th>
-            <th>
-                T
-            </th>
-            <th>
-                W
-            </th>
-            <th>
-                T
-            </th>
-            <th>
-                F
-            </th>
-            <th>
-                S
-            </th>
-        </thead>
-        <tbody>
-            <tr>
-                <td colspan="7" class="heading">
-                    {{ months[month.month] }} {{ month.year}}
-                </td>
-            </tr>
-            <ng-template ngFor let-week [ngForOf]="month.weeks">
+<cdk-virtual-scroll-viewport itemSize="200" class="calendar-viewport">
+    <div *cdkVirtualFor="let month of calendar" class="calendar-viewport-item">
+        <table>
+            <thead>
+                <th>
+                    S
+                </th>
+                <th>
+                    M
+                </th>
+                <th>
+                    T
+                </th>
+                <th>
+                    W
+                </th>
+                <th>
+                    T
+                </th>
+                <th>
+                    F
+                </th>
+                <th>
+                    S
+                </th>
+            </thead>
+            <tbody>
                 <tr>
-                    <ng-template ngFor let-day [ngForOf]="week">
-                        <td [class.weekend]="day?.isWeekend"
-                            [class.holiday]="day?.holidays?.length > 0"
-                            [class.invalid]="!day"
-                            [matTooltip]="getHolidayList(day)">
-                            {{ day?.date.getDate() }}
-                        </td>
-                    </ng-template>
+                    <td colspan="7" class="heading">
+                        {{ months[month.month] }} {{ month.year}}
+                    </td>
                 </tr>
-            </ng-template>
-        </tbody>
-    </ng-template>
-</table>
+                <ng-template ngFor let-week [ngForOf]="month.weeks">
+                    <tr>
+                        <ng-template ngFor let-day [ngForOf]="week">
+                            <td [class.weekend]="day?.isWeekend" [class.holiday]="day?.holidays?.length > 0"
+                                [class.invalid]="!day" [matTooltip]="getHolidayList(day)">
+                                {{ day?.date.getDate() }}
+                            </td>
+                        </ng-template>
+                    </tr>
+                </ng-template>
+            </tbody>
+        </table>
+    </div>
+</cdk-virtual-scroll-viewport>
