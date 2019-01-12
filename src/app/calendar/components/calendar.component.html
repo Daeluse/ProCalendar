@@ -1,0 +1,45 @@
+{{ startDate }} - {{ endDate }} - {{ countryCode }}
+
+<table>
+    <ng-template ngFor let-month [ngForOf]="calendar">
+        <thead>
+            <th>
+                S
+            </th>
+            <th>
+                M
+            </th>
+            <th>
+                T
+            </th>
+            <th>
+                W
+            </th>
+            <th>
+                T
+            </th>
+            <th>
+                F
+            </th>
+            <th>
+                S
+            </th>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="7" class="heading">
+                    {{ months[month.month] }} {{ month.year}}
+                </td>
+            </tr>
+            <ng-template ngFor let-week [ngForOf]="month.weeks">
+                <tr>
+                    <ng-template ngFor let-day [ngForOf]="week">
+                        <td [class.weekend]="day?.isWeekend">
+                            {{ day?.date.getDate() }}
+                        </td>
+                    </ng-template>
+                </tr>
+            </ng-template>
+        </tbody>
+    </ng-template>
+</table>

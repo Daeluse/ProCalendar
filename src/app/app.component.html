@@ -1,28 +1,36 @@
 <mat-card>
-  <mat-card-header>
-    <div mat-card-avatar class="avatar-icon">
-      <mat-icon>calendar_today</mat-icon>
-    </div>
-    <mat-card-title>ProCalendar</mat-card-title>
-    <mat-card-subtitle>Range Viewer</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <form>
+  <form (ngSubmit)="calendar.refresh()">
+    <mat-card-header>
+      <div mat-card-avatar class="avatar-icon">
+        <mat-icon>calendar_today</mat-icon>
+      </div>
+      <mat-card-title>ProCalendar</mat-card-title>
+      <mat-card-subtitle>Range Viewer</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
       <div>
-        <mat-form-field>
-          <input matInput placeholder="Start Date" value="01/11/2019">
-        </mat-form-field>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="Start Date" [(ngModel)]="startDate" name="startDate">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="End Date" [(ngModel)]="endDate" name="endDate">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="Country Code" [(ngModel)]="countryCode" name="countryCode">
+          </mat-form-field>
+        </div>
       </div>
       <div>
-        <mat-form-field>
-          <input matInput placeholder="End Date" value="02/11/2019">
-        </mat-form-field>
+        <app-calendar #calendar [startDate]="startDate" [endDate]="endDate" [countryCode]="countryCode"></app-calendar>
       </div>
-      <div>
-        <mat-form-field>
-          <input matInput placeholder="Country Code" value="US">
-        </mat-form-field>
-      </div>
-    </form>
-  </mat-card-content>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button type="submit">Generate Calendar</button>
+    </mat-card-actions>
+  </form>
 </mat-card>

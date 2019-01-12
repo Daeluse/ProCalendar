@@ -1,12 +1,16 @@
 import { TestBed, async } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 // Material Imports
 import {
   MatCardModule,
   MatInputModule,
-  MatIconModule
+  MatIconModule,
+  MatButtonModule
 } from '@angular/material';
+
+import { CalendarModule } from './calendar/calendar.module';
 
 import { AppComponent } from './app.component';
 
@@ -14,10 +18,13 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        FormsModule,
         NoopAnimationsModule,
         MatCardModule,
         MatInputModule,
-        MatIconModule
+        MatIconModule,
+        MatButtonModule,
+        CalendarModule
       ],
       declarations: [
         AppComponent
@@ -29,12 +36,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'calendar'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('calendar');
   });
 
   it('should render title in a mat-card-title tag', () => {
