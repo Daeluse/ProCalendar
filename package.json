@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "ci": "ng lint && ng test && ng build && gh-pages -d dist/calendar"
+    "ci": "ng lint && ng test --watch false && ng build && gh-pages -d dist/calendar"
   },
   "private": true,
   "dependencies": {
