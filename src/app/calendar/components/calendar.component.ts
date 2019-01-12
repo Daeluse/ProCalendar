@@ -65,7 +65,7 @@ export class CalendarComponent {
 
     public refresh() {
         const endDate = DateUtil.incrementDate(this._startDate, this._range);
-        this._holidayService.requestHolidays('US', this._startDate.getFullYear(), endDate.getFullYear()).subscribe((res) => {
+        this._holidayService.requestHolidays(this._countryCode, this._startDate.getFullYear(), endDate.getFullYear()).subscribe((res) => {
             this._calendar = this._calendarService.generateCalendar(this._startDate, endDate, res);
             this._changeDetectorRef.detectChanges();
         }, () => {

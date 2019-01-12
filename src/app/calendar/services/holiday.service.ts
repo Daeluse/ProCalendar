@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { combineLatest, Observable, of } from 'rxjs';
-import { map, tap, timeout } from 'rxjs/operators';
+import { map, timeout } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 
@@ -21,24 +21,29 @@ export class HolidayService {
         endYear: number
     ): Observable<any> {
         const requests = [];
-        let year = startYear;
         let identifier;
-        while (year <= endYear) {
-            identifier = `${countryCode}/${year}`;
+        while (startYear <= endYear) {
+            identifier = `${countryCode}/${startYear}`;
             if (this._requestCache[identifier] != null) {
                 requests.push(of(this._requestCache[identifier]));
             } else {
                 /* tslint:disable */
-                requests.push(this._httpClient.get(
-                    `https://www.calendarindex.com/api/v1/holidays?api_key=${environment.holidayApiKey}&country=${countryCode}&year=${year}`
-                ).pipe(
-                    tap((res) => {
-                        this._requestCache[identifier] = res;
+                requests.push(
+                  combineLatest(
+                    of(identifier),
+                    this._httpClient.get(
+                      `https://www.calendarindex.com/api/v1/holidays?api_key=${environment.holidayApiKey}&country=${countryCode}&year=${startYear}`
+                    )
+                  ).pipe(
+                    map((res) => {
+                      this._requestCache[res[0]] = res[1];
+                      return res[1];
                     })
-                ));
+                  )
+                );
                 /* tslint:enable */
             }
-            year += 1;
+            startYear += 1;
         }
         return combineLatest(requests).pipe(
             timeout(10000),
