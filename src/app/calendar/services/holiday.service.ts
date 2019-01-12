@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { combineLatest, Observable, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, timeout } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 
@@ -37,6 +37,7 @@ export class HolidayService {
             year += 1;
         }
         return combineLatest(requests).pipe(
+            timeout(10000),
             map((holidays) => {
                 holidays = holidays.reduce((acc, holidayResponse) => {
                     acc.push(...holidayResponse.response.holidays);
