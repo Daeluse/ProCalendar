@@ -5,7 +5,7 @@ import {
     Month,
     Day
 } from '../models/calendar';
-import { HolidayResponse, Holiday } from '../models/holiday';
+import { Holiday } from '../models/holiday';
 
 @Injectable({
     providedIn: 'root'

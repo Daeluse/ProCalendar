@@ -61,7 +61,6 @@ describe('CalendarService', () => {
         // Calendar should contain New Year's Day
         expect(calendar.length).toEqual(1);
         expect(calendar[0].weeks[0][6].holidays.length).toEqual(1);
-        console.log(calendar);
     });
 
 });
