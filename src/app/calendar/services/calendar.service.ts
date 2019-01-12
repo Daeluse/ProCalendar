@@ -83,8 +83,10 @@ export class CalendarService {
                 activeMonth = new Month(activeDate);
             }
         }
-        // Append the Month to the Calendar
-        calendar.push(activeMonth);
+        if (activeMonth.weeks.length > 0) {
+            // Append the Month to the Calendar
+            calendar.push(activeMonth);
+        }
         return calendar;
     }
 
