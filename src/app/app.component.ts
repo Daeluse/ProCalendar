@@ -17,16 +17,16 @@ export class AppComponent {
 
   public get endDate(): Date {
     if (this.startDate && this._range) {
-      let endDate = new Date(this.startDate);
+      const endDate = new Date(this.startDate);
       endDate.setDate(endDate.getDate() + +this._range);
       return endDate;
     }
     return null;
   }
 
-  public startDate: string = '01/13/2019';
-  public countryCode: string = 'US';
+  public startDate = '01/13/2019';
+  public countryCode = 'US';
 
-  private _range: string = '17';
+  private _range = '17';
 
 }

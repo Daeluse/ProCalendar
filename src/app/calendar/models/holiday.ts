@@ -10,5 +10,5 @@ export interface HolidayResponse {
     meta: { [key: string]: any };
     response: {
         holidays: Holiday[];
-    }
-};
+    };
+}

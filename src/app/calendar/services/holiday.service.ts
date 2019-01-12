@@ -24,7 +24,9 @@ export class HolidayService {
         let year = startYear;
         let request;
         while (year <= endYear) {
+            /* tslint:disable */
             request = `https://www.calendarindex.com/api/v1/holidays?api_key=${environment.holidayApiKey}&country=${countryCode}&year=${year}`;
+            /* tslint:enable */
             if (this._requestCache[request] != null) {
                 requests.push(of(this._requestCache[request]));
             } else {

@@ -45,7 +45,7 @@ export class CalendarService {
                 activeWeek.push(...new Array(activeDate.getDay()));
             }
             // Create a new Day object to store relevant information for rendering
-            let day = new Day(activeDate);
+            const day = new Day(activeDate);
             // Append relevant holidays to the Day
             if (holidays != null) {
                 day.holidays = this._getActiveHolidays(day, holidays);
@@ -56,7 +56,7 @@ export class CalendarService {
             if (activeDate.getDay() === 6
                 || activeDate.getTime() === endDate.getTime()) {
                 // Perform right-hand padding where applicable
-                if (activeWeek.length < 7){
+                if (activeWeek.length < 7) {
                     activeWeek.push(...new Array(7 - activeWeek.length));
                 }
                 // Append the Week to the Month
@@ -70,7 +70,7 @@ export class CalendarService {
                 || activeDate.getFullYear() !== activeMonth.year) {
                 if (activeWeek.length > 0) {
                     // Perform right-hand padding where applicable
-                    if (activeWeek.length < 7){
+                    if (activeWeek.length < 7) {
                         activeWeek.push(...new Array(7 - activeWeek.length));
                     }
                     // Append the Week to the Month

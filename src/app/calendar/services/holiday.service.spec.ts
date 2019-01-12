@@ -27,7 +27,9 @@ describe('HolidayService', () => {
         service.requestHolidays('US', 2000, 2000).subscribe((res) => {
             expect(res[0]['name']).toBe('New Year\'s Day');
         });
-        let mockReq = httpClient.expectOne(`https://www.calendarindex.com/api/v1/holidays?api_key=${environment.holidayApiKey}&country=US&year=2000`);
+        const mockReq = httpClient.expectOne(
+            `https://www.calendarindex.com/api/v1/holidays?api_key=${environment.holidayApiKey}&country=US&year=2000`
+        );
         mockReq.flush({
             meta: {
                 code: 200
@@ -35,11 +37,11 @@ describe('HolidayService', () => {
             response: {
                 holidays: [
                     {
-                        date: "2019-01-01 00:00:00",
-                        end: "2019-01-02T05:00:00.000Z",
-                        name: "New Year's Day",
-                        start: "2019-01-01T05:00:00.000Z",
-                        type: "public"
+                        date: '2019-01-01 00:00:00',
+                        end: '2019-01-02T05:00:00.000Z',
+                        name: 'New Year\'s Day',
+                        start: '2019-01-01T05:00:00.000Z',
+                        type: 'public'
                     }
                 ]
             }

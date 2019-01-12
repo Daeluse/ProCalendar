@@ -1,6 +1,5 @@
 import {
     Component,
-    OnInit,
     Input,
     ChangeDetectionStrategy,
     ChangeDetectorRef
@@ -17,10 +16,10 @@ import { HolidayService } from '../services/holiday.service';
     styleUrls: ['./calendar.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent {
 
     @Input() public set startDate(startDate: string) {
-        if (startDate) { 
+        if (startDate) {
             this._startDate = new Date(startDate);
         }
     }
@@ -29,7 +28,7 @@ export class CalendarComponent implements OnInit {
     }
 
     @Input() public set endDate(endDate: string) {
-        if (endDate) { 
+        if (endDate) {
             this._endDate = new Date(endDate);
         }
     }
@@ -38,7 +37,7 @@ export class CalendarComponent implements OnInit {
     }
 
     @Input() public set countryCode(countryCode: string) {
-        if (countryCode) { 
+        if (countryCode) {
             this._countryCode = countryCode;
         }
     }
@@ -63,8 +62,6 @@ export class CalendarComponent implements OnInit {
         private _holidayService: HolidayService
     ) { }
 
-    ngOnInit(): void { }
-4
     public refresh() {
         this._holidayService.requestHolidays('US', this._startDate.getFullYear(), this._endDate.getFullYear()).subscribe((res) => {
             this._calendar = this._calendarService.generateCalendar(this._startDate, this._endDate, res);

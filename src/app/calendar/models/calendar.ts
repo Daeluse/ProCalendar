@@ -15,13 +15,13 @@ export class Month {
 
 export type Week = Day[];
 
-export class Day {   
+export class Day {
     public get date(): Date {
         return this._date;
     }
 
     public holidays: Holiday[] = [];
-    public isWeekend: boolean = false;
+    public isWeekend = false;
 
     private _date: Date;
 
