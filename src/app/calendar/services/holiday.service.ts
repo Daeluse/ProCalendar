@@ -22,7 +22,6 @@ export class HolidayService {
     ): Observable<any> {
         const requests = [];
         let year = startYear;
-        let request;
         let identifier;
         while (year <= endYear) {
             identifier = `${countryCode}/${year}`;
