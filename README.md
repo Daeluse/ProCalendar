@@ -30,15 +30,15 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Calendar Display
 
-Weekends are displayed using Hex Color Code #fafb03
-Weekdays are displayed using Hex Color Code #ecf7d3
-Holidays are displayed using Hex Color Code #fe7906
-Invalid days are displayed using Hex Color Code #ccccca
+- Weekends are displayed using Hex Color Code #fafb03
+- Weekdays are displayed using Hex Color Code #ecf7d3
+- Holidays are displayed using Hex Color Code #fe7906
+- Invalid days are displayed using Hex Color Code #ccccca
 
 ## Resources Used
 
-Dates and Times regarding Holidays are being retrieved using https://www.calendarindex.com/
-General Layout and Styles are being utilized from the Angular Material Library https://material.angular.io/
+- Dates and Times regarding Holidays are being retrieved using https://www.calendarindex.com/
+- General Layout and Styles are being utilized from the Angular Material Library https://material.angular.io/
 
 ## Time to Complete
 
@@ -54,13 +54,13 @@ None
 
 ## Current Feature Enhancements
 
-Partial caching of API Requests to speed up additional requests for country code and year pairings.
-Tooltips displaying which holidays are associated with a certain day.
-Virtual Scrolling to ensure swift rendering, even with multi-thousand day ranges.
+- Partial caching of API Requests to speed up additional requests for country code and year pairings.
+- Tooltips displaying which holidays are associated with a certain day.
+- Virtual Scrolling to ensure swift rendering, even with multi-thousand day ranges.
 
 ## Future Feature Enhancements
 
-Refactor Calendar Generation to allow for users to determine First Day of the Week.
-More Robust Caching of the Requests made to CalendarIndex.
-Obfuscation of CalendarIndex API by storing it in a backend, not applicable for the project.
-Refactor Calendar styles to fit better into the Virtual scrolling frame.
+- Refactor Calendar Generation to allow for users to determine First Day of the Week.
+- More Robust Caching of the Requests made to CalendarIndex.
+- Obfuscation of CalendarIndex API by storing it in a backend, not applicable for the project.
+- Refactor Calendar styles to fit better into the Virtual scrolling frame.
