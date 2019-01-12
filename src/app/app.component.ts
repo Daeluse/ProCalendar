@@ -1,4 +1,8 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
+
+import { ValidErrorStateMatcher } from './shared/matchers/valid.matcher';
+import { DateValidator } from './shared/validators/date.validator';
 
 @Component({
   selector: 'app-root',
@@ -8,25 +12,21 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 })
 export class AppComponent {
 
-  public set range(range: string) {
-    this._range = range;
-  }
-  public get range(): string {
-    return this._range;
-  }
-
-  public get endDate(): Date {
-    if (this.startDate && this._range) {
-      const endDate = new Date(this.startDate);
-      endDate.setDate(endDate.getDate() + +this._range);
-      return endDate;
-    }
-    return null;
-  }
-
-  public startDate = '01/13/2019';
-  public countryCode = 'US';
-
-  private _range = '17';
+  public dateForm = new FormGroup({
+    dateControl: new FormControl('01/13/2019', [
+      Validators.required,
+      DateValidator
+    ]),
+    rangeControl: new FormControl('365', [
+      Validators.required,
+      Validators.pattern(/^[0-9]*$/)
+    ]),
+    countryCodeControl: new FormControl('US', [
+      Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(2)
+    ])
+  });
+  public matcher = new ValidErrorStateMatcher();
 
 }

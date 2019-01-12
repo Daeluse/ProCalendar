@@ -6,6 +6,7 @@ import {
     Day
 } from '../models/calendar';
 import { Holiday } from '../models/holiday';
+import { DateUtil } from '../utils/date';
 
 @Injectable({
     providedIn: 'root'
@@ -19,8 +20,8 @@ export class CalendarService {
     ): Calendar {
         // Ensure our date range is valid
         if (
-            !this._isValidDate(startDate)
-            || !this._isValidDate(endDate)
+            !DateUtil.isValidDate(startDate)
+            || !DateUtil.isValidDate(endDate)
             || startDate.getTime() > endDate.getTime()) {
             return [];
         }
@@ -64,7 +65,7 @@ export class CalendarService {
                 activeWeek = [];
             }
             // Move to the next Day in the loop
-            activeDate = this._incrementDate(activeDate, 1);
+            activeDate = DateUtil.incrementDate(activeDate, 1);
             // Check if the Month or the Year needs to be incremented
             if (activeDate.getMonth() !== activeMonth.month
                 || activeDate.getFullYear() !== activeMonth.year) {
@@ -87,16 +88,6 @@ export class CalendarService {
         return calendar;
     }
 
-    private _incrementDate(
-        date: Date,
-        count: number
-    ): Date {
-        // Re-Initialize the date to prevent in-line mutation from the caller
-        date = new Date(date);
-        date.setDate(date.getDate() + count);
-        return date;
-    }
-
     private _getActiveHolidays(
         day: Day,
         holidays: Holiday[]
@@ -110,12 +101,6 @@ export class CalendarService {
             return acc;
         }, []);
         return holidays;
-    }
-
-    private _isValidDate(
-        date: any
-    ) {
-        return date instanceof Date && !isNaN(date as any);
     }
 
 }

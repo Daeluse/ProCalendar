@@ -23,18 +23,21 @@ export class HolidayService {
         const requests = [];
         let year = startYear;
         let request;
+        let identifier;
         while (year <= endYear) {
-            /* tslint:disable */
-            request = `https://www.calendarindex.com/api/v1/holidays?api_key=${environment.holidayApiKey}&country=${countryCode}&year=${year}`;
-            /* tslint:enable */
-            if (this._requestCache[request] != null) {
-                requests.push(of(this._requestCache[request]));
+            identifier = `${countryCode}/${year}`;
+            if (this._requestCache[identifier] != null) {
+                requests.push(of(this._requestCache[identifier]));
             } else {
-                requests.push(this._httpClient.get(request).pipe(
+                /* tslint:disable */
+                requests.push(this._httpClient.get(
+                    `https://www.calendarindex.com/api/v1/holidays?api_key=${environment.holidayApiKey}&country=${countryCode}&year=${year}`
+                ).pipe(
                     tap((res) => {
-                        this._requestCache[request] = res;
+                        this._requestCache[identifier] = res;
                     })
                 ));
+                /* tslint:enable */
             }
             year += 1;
         }

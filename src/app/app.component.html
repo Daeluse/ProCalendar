@@ -1,5 +1,5 @@
 <mat-card>
-  <form (ngSubmit)="calendar.refresh()">
+  <form [formGroup]="dateForm" (ngSubmit)="calendar.refresh()">
     <mat-card-header>
       <div mat-card-avatar class="avatar-icon">
         <mat-icon>calendar_today</mat-icon>
@@ -11,26 +11,50 @@
       <div>
         <div>
           <mat-form-field>
-            <input matInput placeholder="Start Date" [(ngModel)]="startDate" name="startDate">
+            <input matInput placeholder="Start Date" formControlName="dateControl" [errorStateMatcher]="matcher">
+            <mat-hint>mm/dd/yyyy</mat-hint>
+            <mat-error *ngIf="dateForm.get('dateControl').hasError('date') && !dateForm.get('dateControl').hasError('required')">
+              Please enter a valid Start Date
+            </mat-error>
+            <mat-error *ngIf="dateForm.get('dateControl').hasError('required')">
+              Start Date is required
+            </mat-error>
           </mat-form-field>
         </div>
         <div>
           <mat-form-field>
-            <input matInput placeholder="Number of days" [(ngModel)]="range" name="range">
+            <input matInput placeholder="Number of days" formControlName="rangeControl">
+            <mat-hint>Numerical Range</mat-hint>
+            <mat-error *ngIf="dateForm.get('rangeControl').hasError('pattern') && !dateForm.get('rangeControl').hasError('required')">
+              Please enter a valid Range
+            </mat-error>
+            <mat-error *ngIf="dateForm.get('rangeControl').hasError('required')">
+              Range is required
+            </mat-error>
           </mat-form-field>
         </div>
         <div>
           <mat-form-field>
-            <input matInput placeholder="Country Code" [(ngModel)]="countryCode" name="countryCode">
+            <input matInput placeholder="Country Code" formControlName="countryCodeControl">
+            <mat-hint>Two Character ISO</mat-hint>
+            <mat-error *ngIf="dateForm.get('countryCodeControl').hasError('minlength')
+                              || dateForm.get('countryCodeControl').hasError('maxlength')
+                              && !dateForm.get('countryCodeControl').hasError('required')">
+              Please enter a valid Country Code
+            </mat-error>
+            <mat-error *ngIf="dateForm.get('countryCodeControl').hasError('required')">
+              Country Code is required
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
       <div>
-        <app-calendar #calendar [startDate]="startDate" [endDate]="endDate" [countryCode]="countryCode"></app-calendar>
+        <app-calendar #calendar [startDate]="dateForm.get('dateControl').value" [range]="dateForm.get('rangeControl').value"
+          [countryCode]="dateForm.get('countryCodeControl').value"></app-calendar>
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button type="submit">Generate Calendar</button>
+      <button mat-raised-button type="submit" [disabled]="!dateForm.valid">Generate Calendar</button>
     </mat-card-actions>
   </form>
 </mat-card>
