@@ -28,6 +28,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 # Task Guidelines
 
+The application is published at https://daeluse.github.io/ProCalendar/
+
 ## Calendar Display
 
 - Weekends are displayed using Hex Color Code #fafb03
