@@ -34,7 +34,10 @@
             <ng-template ngFor let-week [ngForOf]="month.weeks">
                 <tr>
                     <ng-template ngFor let-day [ngForOf]="week">
-                        <td [class.weekend]="day?.isWeekend">
+                        <td [class.weekend]="day?.isWeekend"
+                            [class.holiday]="day?.holidays?.length > 0"
+                            [class.invalid]="!day"
+                            [matTooltip]="getHolidayList(day)">
                             {{ day?.date.getDate() }}
                         </td>
                     </ng-template>

@@ -7,8 +7,9 @@ import {
 } from '@angular/core';
 
 import { MONTHS } from '../constants/months';
-import { Calendar } from '../models/calendar';
+import { Calendar, Day } from '../models/calendar';
 import { CalendarService } from '../services/calendar.service';
+import { HolidayService } from '../services/holiday.service';
 
 @Component({
     selector: 'app-calendar',
@@ -58,15 +59,31 @@ export class CalendarComponent implements OnInit {
 
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
-        private _calendarService: CalendarService
+        private _calendarService: CalendarService,
+        private _holidayService: HolidayService
     ) { }
 
     ngOnInit(): void { }
-
+4
     public refresh() {
-        this._calendar = this._calendarService.generateCalendar(this._startDate, this._endDate);
-        this._changeDetectorRef.detectChanges();
-        console.log(this._calendar);
+        this._holidayService.requestHolidays('US', this._startDate.getFullYear(), this._endDate.getFullYear()).subscribe((res) => {
+            this._calendar = this._calendarService.generateCalendar(this._startDate, this._endDate, res);
+            this._changeDetectorRef.detectChanges();
+        }, () => {
+            console.warn('We were unable to load holidays for the range requested, the will not be displayed.');
+            this._calendar = this._calendarService.generateCalendar(this._startDate, this._endDate);
+            this._changeDetectorRef.detectChanges();
+        });
+    }
+
+    public getHolidayList(day: Day): string {
+        if (day && day.holidays && day.holidays.length > 0) {
+            return day.holidays.reduce((acc, holiday) => {
+                acc = holiday.name + '\n';
+                return acc;
+            }, '');
+        }
+        return null;
     }
 
 }

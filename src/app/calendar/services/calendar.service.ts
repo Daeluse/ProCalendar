@@ -5,6 +5,7 @@ import {
     Month,
     Day
 } from '../models/calendar';
+import { HolidayResponse, Holiday } from '../models/holiday';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,8 @@ export class CalendarService {
 
     public generateCalendar(
         startDate: Date,
-        endDate: Date
+        endDate: Date,
+        holidays?: Holiday[]
     ): Calendar {
         // Ensure our date range is valid
         if (
@@ -22,53 +24,66 @@ export class CalendarService {
             || startDate.getTime() > endDate.getTime()) {
             return [];
         }
-        const dateRange = this._generateRange(startDate, endDate);
-        return dateRange;
+        const calendar = this._generateRange(startDate, endDate, holidays);
+        return calendar;
     }
 
     private _generateRange(
         startDate: Date,
-        endDate: Date
+        endDate: Date,
+        holidays?: Holiday[]
     ): Calendar {
+        // Backing Data Stores for use in the loop
         const calendar = [];
-        // Instantiate a new Month object utilizing our start date to generate the month and the year of the object
-        let month = new Month(startDate);
-        let week = [];
-        // Re-Initialize the currentDay object to prevent mutation of the passed reference
-        let currentDay = new Date(startDate);
-        let activeMonth;
-        // Perform left-hand padding to ensure proper day alignment in calendar
-        let padL = startDate.getDay();
-        if (padL > 0) {
-            week.push(...new Array(padL));
-        }
-        // Perform a loop through the date range
-        while (currentDay <= endDate) {
-            // Store the current month/year relation for checking later
-            activeMonth = `${currentDay.getMonth()}/${currentDay.getFullYear()}`;
-            // Add the current day to our running week array
-            week.push(new Day(currentDay));
-            // Check if our day is ending the week, or the selected range
-            if (currentDay.getDay() === 6
-                || currentDay.getTime() === endDate.getTime()) {
-                // Write the week to the month
-                month.weeks.push(week)
-                // Clear the week for the next cycle of the loop
-                week = [];
+        let activeDate = new Date(startDate);
+        let activeWeek = [];
+        let activeMonth = new Month(activeDate);
+        // Loop through each day between the start and end dates
+        while (activeDate <= endDate) {
+            // Check if we need to perform left-hand padding to ensure proper position of the start date
+            if (activeWeek.length < activeDate.getDay()) {
+                activeWeek.push(...new Array(activeDate.getDay()));
             }
-            // Increment the currentDay to prepare the next loop cycle
-            currentDay = this._incrementDate(currentDay, 1);
-            // Check if the new current day is part of a separate month
-            if (activeMonth !== `${currentDay.getMonth()}/${currentDay.getFullYear()}`) {
-                // Write the month to the calendar
-                calendar.push(month);
-                // Clear the month for the next cycle of the loop
-                month = new Month(currentDay);
+            // Create a new Day object to store relevant information for rendering
+            let day = new Day(activeDate);
+            // Append relevant holidays to the Day
+            if (holidays != null) {
+                day.holidays = this._getActiveHolidays(day, holidays);
+            }
+            // Append the Day to the Week
+            activeWeek.push(day);
+            // Check if the Day will be at the end of the week, or the end of the range
+            if (activeDate.getDay() === 6
+                || activeDate.getTime() === endDate.getTime()) {
+                // Perform right-hand padding where applicable
+                if (activeWeek.length < 7){
+                    activeWeek.push(...new Array(7 - activeWeek.length));
+                }
+                // Append the Week to the Month
+                activeMonth.weeks.push(activeWeek);
+                activeWeek = [];
+            }
+            // Move to the next Day in the loop
+            activeDate = this._incrementDate(activeDate, 1);
+            // Check if the Month or the Year needs to be incremented
+            if (activeDate.getMonth() !== activeMonth.month
+                || activeDate.getFullYear() !== activeMonth.year) {
+                if (activeWeek.length > 0) {
+                    // Perform right-hand padding where applicable
+                    if (activeWeek.length < 7){
+                        activeWeek.push(...new Array(7 - activeWeek.length));
+                    }
+                    // Append the Week to the Month
+                    activeMonth.weeks.push(activeWeek);
+                    activeWeek = [];
+                }
+                // Append the Month to the Calendar
+                calendar.push(activeMonth);
+                activeMonth = new Month(activeDate);
             }
         }
-        // Write the month to the calendar, this takes care of any case where the month was not written as part
-        // of a new month being created
-        calendar.push(month);
+        // Append the Month to the Calendar
+        calendar.push(activeMonth);
         return calendar;
     }
 
@@ -80,6 +95,21 @@ export class CalendarService {
         date = new Date(date);
         date.setDate(date.getDate() + count);
         return date;
+    }
+
+    private _getActiveHolidays(
+        day: Day,
+        holidays: Holiday[]
+    ) {
+        holidays = holidays.reduce((acc, holiday) => {
+            if (holiday.start.getTime() <= day.date.getTime()
+                && holiday.end.getTime() > day.date.getTime()
+                && holiday.date.getFullYear() === day.date.getFullYear()) {
+                   acc.push(holiday);
+            }
+            return acc;
+        }, []);
+        return holidays;
     }
 
     private _isValidDate(

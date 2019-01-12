@@ -28,8 +28,8 @@ describe('CalendarService', () => {
         const endDate = new Date('01/03/2000');
         const calendar = service.generateCalendar(startDate, endDate);
         expect(calendar[0].weeks.length).toEqual(1);
-        // 01/03/2000 was a Monday, so we expect two days in the week (a placeholder for both Sunday and Monday)
-        expect(calendar[0].weeks[0].length).toEqual(2);
+        // 01/03/2000 was a Monday, but we expect seven days in the week
+        expect(calendar[0].weeks[0].length).toEqual(7);
     });
 
     it('should fail gracefully for invalid dates', () => {
@@ -46,6 +46,22 @@ describe('CalendarService', () => {
         const calendar = service.generateCalendar(startDate, endDate);
         // To gracefully fail, we're simply returning an empty calendar
         expect(calendar.length).toEqual(0);
+    });
+
+    it('should be able to link up relevant holidays to a given date', () => {
+        const startDate = new Date('01/01/2000');
+        const endDate = new Date('01/01/2000');
+        const calendar = service.generateCalendar(startDate, endDate, [{
+            date: new Date('2000-01-01 00:00:00'),
+            end: new Date('2000-01-02T05:00:00.000Z'),
+            name: 'New Year\'s Day',
+            start: new Date('2000-01-01T05:00:00.000Z'),
+            type: 'public'
+        }]);
+        // Calendar should contain New Year's Day
+        expect(calendar.length).toEqual(1);
+        expect(calendar[0].weeks[0][6].holidays.length).toEqual(1);
+        console.log(calendar);
     });
 
 });

@@ -1,3 +1,5 @@
+import { Holiday } from './holiday';
+
 export type Calendar = Month[];
 
 export class Month {
@@ -13,24 +15,19 @@ export class Month {
 
 export type Week = Day[];
 
-export class Day {
-    public set date(date: Date) {
-        if (date) {
-            this._date = date;
-            this._processDateObject(date);
-        }
-    }
-    
+export class Day {   
     public get date(): Date {
         return this._date;
     }
 
+    public holidays: Holiday[] = [];
     public isWeekend: boolean = false;
 
     private _date: Date;
 
     constructor(date: string | number | Date) {
-        this.date = new Date(date);
+        this._date = new Date(date);
+        this._processDateObject(this._date);
     }
 
     private _processDateObject(date: Date) {
